@@ -3,8 +3,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Layout from './layout'
 import HelloWorldPage from './views/HelloWorld'
+import LoginPage from './views/Login'
 
-const CostumeRouter = ({}) => {
+const CostumeRouter = ({isLogin}) => {
 
   let routes = [
     {
@@ -14,6 +15,9 @@ const CostumeRouter = ({}) => {
   ]
 
   return (
+    
+      isLogin ? 
+    
     <BrowserRouter>
     {
     
@@ -24,10 +28,12 @@ const CostumeRouter = ({}) => {
       </Routes>
     }
     </BrowserRouter>
+    :
+    <LoginPage />
   )
 }
 const mapStateToProps = state => ({
-
+  isLogin: state.userState.isLogin
 })
 const mapDispatchToProps ={
 

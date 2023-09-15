@@ -7,7 +7,8 @@ const router = require('./routes')
 const app = express()
 var bodyParser = require('body-parser');
 const formidable = require('express-formidable');
-
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const PORT = process.env.PORT
 
@@ -17,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use('/media', express.static('media'))
-// app.use(formidable());
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api', router)
 app.enable('trust proxy')
 
@@ -27,7 +28,7 @@ app.enable('trust proxy')
 app.listen(PORT, async () => {
     try {
 
-        console.log(`👍 Server Is Up And Running On Port `, PORT)
+        console.log("👍 Server Is Up And Running On Port ", PORT)
 
 
         await connectDB()

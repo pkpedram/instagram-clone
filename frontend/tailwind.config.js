@@ -5,7 +5,10 @@ module.exports = {
     extend: {
       colors: {
         selphRed: '#DD1724',
-        selphDark: '#242424'
+        selphDark: '#242424',
+        main: {
+          blue: '#1877F2'
+        }
       },
     },
   },

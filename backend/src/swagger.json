@@ -1,0 +1,609 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "instaclone API Document",
+        "description": "",
+        "termsOfService":  "https://www.google.com/policies/terms/",
+        "contact": {
+            "email": "contact@snippets.local"
+          },
+          "license": {
+            "name": "BSD License"
+          },
+          "version": "v1"
+        },
+        "host": "localhost:5000",
+    "schemes": [
+        "http"
+      ],
+      "basePath": "/api",
+      "consumes": [
+        "application/json",
+        "multipart/form-data"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "securityDefinitions": {
+        "bearerAuth": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "Authorization"
+        }
+      },
+      "components": {
+        "securitySchemes": {
+          "bearerAuth": {
+            "type": "http",
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token to access these api endpoints",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+          }
+        }
+      },
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ],
+      "paths": {
+        "/login": {
+          "post": {
+            "operationId": "userlogin",
+            "description": "",
+            "parameters": [
+              {
+                "name": "data",
+                "in": "body",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/login"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "",
+                "schema": {
+                  "$ref": "#/definitions/loginresponse"
+                }
+              },
+              "201": {
+                "description": "",
+                "schema": {
+                  "$ref": "#/definitions/loginresponse"
+                }
+              }
+            },
+            "tags": [
+              "login-register"
+            ]
+          }
+        },
+        "/login/admin": {
+          "post": {
+            "operationId": "adminlogin",
+            "description": "",
+            "parameters": [
+              {
+                "name": "data",
+                "in": "body",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/login"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "",
+                "schema": {
+                  "$ref": "#/definitions/loginresponse"
+                }
+              },
+              "201": {
+                "description": "",
+                "schema": {
+                  "$ref": "#/definitions/loginresponse"
+                }
+              }
+            },
+            "tags": [
+              "login-register"
+            ]
+          }
+        },
+        "/register": {
+          "post": {
+            "operationId": "userRegister",
+            "description": "",
+            "parameters": [
+              {
+                "name": "data",
+                "in": "body",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/register"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "",
+                "schema": {
+                  "$ref": "#/definitions/register"
+                }
+              },
+              "201": {
+                "description": "",
+                "schema": {
+                  "$ref": "#/definitions/register"
+                }
+              }
+            },
+            "tags": [
+              "login-register"
+            ]
+          }
+        },
+        
+                "/test": {
+                    "get": {
+                        "operationId": "test_get_list",
+                        "description": "test get list",
+                        "parameters": [{
+                                    "name": "title",
+                                    "in":"query",
+                                    "description": "",
+                                    "required": false,
+                                    "type": "string"
+                                }
+                                ,{
+                                    "name": "link",
+                                    "in":"query",
+                                    "description": "",
+                                    "required": false,
+                                    "type": "string"
+                                }
+                                ,{
+                                    "name": "stepNumber",
+                                    "in":"query",
+                                    "description": "",
+                                    "required": false,
+                                    "type": "string"
+                                }
+                                ],
+                        "responses":{
+                            "200": {
+                                "description": "",
+                                "schema": {
+                                    "requried": [
+                                        "count",
+                                        "result"
+                                    ]
+                                },
+                                "type": "object",
+                                "properties": {
+                                    "count": {
+                                        "type": "integer"
+                                    },
+                                    "results": {
+                                        "type": "array",
+                                        "items": {
+                                          "$ref": "#/definitions/test"
+                                        }
+                            
+                                }
+                            }
+                        }
+                    },
+                    "tags": [
+                        "test"
+                    ]
+                   
+                    },
+                    "post": {
+                        "operationId": "test_create",
+                        "description": "",
+                        "parameters": [
+                         
+                          {
+                              "name": "data",
+                              "in": "body",
+                              "required": true,
+                              "schema": {
+                                "$ref": "#/definitions/test"
+                              }
+                            }
+                          
+                        ],
+                        "responses": {
+                          "200": {
+                            "description": "",
+                            "schema": {
+                              "$ref": "#/definitions/test"
+                            }
+                          },
+                          "201": {
+                            "description": "",
+                            "schema": {
+                              "$ref": "#/definitions/test"
+                            }
+                          }
+                        },
+                        "tags": [
+                          "test"
+                        ]
+                      },
+                      "parameters": [ ]
+                },
+                "/test/{id}": {
+                    "get": {
+                        "operationId": "test_get_detail",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                          "200": {
+                            "description": "",
+                            "schema": {
+                              "$ref": "#/definitions/test"
+                            }
+                          }
+                        },
+                        "tags": [
+                          "test"
+                        ]
+                      },
+                      "put": {
+                        "operationId": "test_update",
+                        "description": "",
+                        "parameters": [
+                          
+                          
+                          {
+                            "name": "data",
+                            "in": "body",
+                            "required": true,
+                            "schema": {
+                              "$ref": "#/definitions/test"
+                            }
+                          }
+                        ],
+                        "responses": {
+                          "200": {
+                            "description": "",
+                            "schema": {
+                              "$ref": "#/definitions/test"
+                            }
+                          }
+                        },
+                        "tags": [
+                          "test"
+                        ]
+                      },
+                      "delete": {
+                        "operationId": "test_delete",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                          "204": {
+                            "description": ""
+                          }
+                        },
+                        "tags": [
+                          "test"
+                        ]
+                      },
+                      "parameters": [
+                        {
+                          "name": "id",
+                          "in": "path",
+                          "description": "A unique integer value identifying this test",
+                          "required": true,
+                          "type": "string"
+                        }
+                    ]
+                }
+                ,
+                "/foreignKeyTest": {
+                    "get": {
+                        "operationId": "foreignKeyTest_get_list",
+                        "description": "foreignKeyTest get list",
+                        "parameters": [{
+                                    "name": "test",
+                                    "in":"query",
+                                    "description": "",
+                                    "required": false,
+                                    "type": "string"
+                                }
+                                ,{
+                                    "name": "testByType",
+                                    "in":"query",
+                                    "description": "",
+                                    "required": false,
+                                    "type": "string"
+                                }
+                                ],
+                        "responses":{
+                            "200": {
+                                "description": "",
+                                "schema": {
+                                    "requried": [
+                                        "count",
+                                        "result"
+                                    ]
+                                },
+                                "type": "object",
+                                "properties": {
+                                    "count": {
+                                        "type": "integer"
+                                    },
+                                    "results": {
+                                        "type": "array",
+                                        "items": {
+                                          "$ref": "#/definitions/foreignKeyTest"
+                                        }
+                            
+                                }
+                            }
+                        }
+                    },
+                    "tags": [
+                        "foreignKeyTest"
+                    ]
+                   
+                    },
+                    "post": {
+                        "operationId": "foreignKeyTest_create",
+                        "description": "",
+                        "parameters": [
+                         
+                          {
+                              "name": "data",
+                              "in": "body",
+                              "required": true,
+                              "schema": {
+                                "$ref": "#/definitions/foreignKeyTest"
+                              }
+                            }
+                          
+                        ],
+                        "responses": {
+                          "200": {
+                            "description": "",
+                            "schema": {
+                              "$ref": "#/definitions/foreignKeyTest"
+                            }
+                          },
+                          "201": {
+                            "description": "",
+                            "schema": {
+                              "$ref": "#/definitions/foreignKeyTest"
+                            }
+                          }
+                        },
+                        "tags": [
+                          "foreignKeyTest"
+                        ]
+                      },
+                      "parameters": [ ]
+                },
+                "/foreignKeyTest/{id}": {
+                    "get": {
+                        "operationId": "foreignKeyTest_get_detail",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                          "200": {
+                            "description": "",
+                            "schema": {
+                              "$ref": "#/definitions/foreignKeyTest"
+                            }
+                          }
+                        },
+                        "tags": [
+                          "foreignKeyTest"
+                        ]
+                      },
+                      "put": {
+                        "operationId": "foreignKeyTest_update",
+                        "description": "",
+                        "parameters": [
+                          
+                          
+                          {
+                            "name": "data",
+                            "in": "body",
+                            "required": true,
+                            "schema": {
+                              "$ref": "#/definitions/foreignKeyTest"
+                            }
+                          }
+                        ],
+                        "responses": {
+                          "200": {
+                            "description": "",
+                            "schema": {
+                              "$ref": "#/definitions/foreignKeyTest"
+                            }
+                          }
+                        },
+                        "tags": [
+                          "foreignKeyTest"
+                        ]
+                      },
+                      "delete": {
+                        "operationId": "foreignKeyTest_delete",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                          "204": {
+                            "description": ""
+                          }
+                        },
+                        "tags": [
+                          "foreignKeyTest"
+                        ]
+                      },
+                      "parameters": [
+                        {
+                          "name": "id",
+                          "in": "path",
+                          "description": "A unique integer value identifying this foreignKeyTest",
+                          "required": true,
+                          "type": "string"
+                        }
+                    ]
+                }
+                
+      },
+      "definitions": {
+        "loginresponse": {
+          "required": [],
+          "type": "object",
+          "properties": {
+            "token": {
+              "title": "JWT TOKEN",
+              "type": "string",
+              "readonly": true
+            }
+          }
+        },
+        "login": {
+          "required": [],
+          "type": "object",
+          "properties": {
+            "username": {
+              "title": "username",
+              "type": "string"
+            },
+            "password": {
+              "title": "password",
+              "type": "string"
+            }
+          }
+        },
+        "register": {
+          "required": [],
+          "type": "object",
+          "properties": {
+            "username": {
+              "title": "username",
+              "type": "string"
+            },
+            "password": {
+              "title": "password",
+              "type": "string"
+            },
+            "email": {
+              "title": "email",
+              "type": "string"
+            },
+            "firstName": {
+              "title": "first name",
+              "type": "string"
+            },
+            "lastName":{
+              "title": "last name",
+              "type": "string"
+            }
+          }
+        },
+        
+                "test":{
+                    "required": [],
+                    "type": "object",
+                    "properties": {
+                        "_id": {
+                            "title": "ID",
+                            "type": "string",
+                            "readOnly": true
+                        },
+                        
+                                "title": {
+                                    "title": "title",
+                                    "type": "string",
+                                    
+                                    "minLength": 1
+                                }
+                                ,
+                                "link": {
+                                    "title": "link",
+                                    "type": "string",
+                                    
+                                    "minLength": 1
+                                }
+                                ,
+                                "stepNumber": {
+                                    "title": "stepNumber",
+                                    "type": "integer",
+                                    
+                                    "minLength": 1
+                                }
+                                
+                        ,
+                        
+                                "isActive": {
+                                    "title": "isActive",
+                                    "type": "boolean",
+                                    
+                                    "minLength": 1
+                                }
+                                ,
+                                "created_date": {
+                                    "title": "created_date",
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "minLength": 1
+                                }
+                                
+                    }
+                }
+                ,
+                "foreignKeyTest":{
+                    "required": [],
+                    "type": "object",
+                    "properties": {
+                        "_id": {
+                            "title": "ID",
+                            "type": "string",
+                            "readOnly": true
+                        },
+                        
+                                "test": {
+                                    "title": "test",
+                                    "type": "string",
+                                    
+                                    "minLength": 1
+                                }
+                                ,
+                                "testByType": {
+                                    "title": "testByType",
+                                    "type": "string",
+                                    
+                                    "minLength": 1
+                                }
+                                
+                        ,
+                        
+                                "isActive": {
+                                    "title": "isActive",
+                                    "type": "boolean",
+                                    
+                                    "minLength": 1
+                                }
+                                ,
+                                "created_date": {
+                                    "title": "created_date",
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "minLength": 1
+                                }
+                                
+                    }
+                }
+                
+      }
+}
