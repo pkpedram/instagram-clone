@@ -8,6 +8,13 @@ const userState = (state = initialState, action ) => {
 
     switch (type) {
       
+        case 'USER_DATA':
+            return {
+                ...state,
+                isLogin: true,
+                userData: payload
+            }
+
         default:
             return state
          

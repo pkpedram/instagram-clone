@@ -4,7 +4,7 @@ const authenticateJwtToken = (roles = []) => (req, res, next) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
 
-    
+    console.log(token)
 
 
   if(roles.length > 1){
@@ -12,7 +12,7 @@ const authenticateJwtToken = (roles = []) => (req, res, next) => {
     jwt.verify(token, process.env.JWT_TOKEN_SECRET, (err, user) => {
         console.error(err)
         if(err) return res.status(403).send({messge: "Sorry, You Don't have access to this part.", err:err})
-
+        console.log(user)
         if(user.role == 'admin'){
             req.user = user
         }else{

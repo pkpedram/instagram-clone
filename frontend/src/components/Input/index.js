@@ -6,15 +6,17 @@ const Input = ({
     onChange,
     value,
     placeholder,
-    type
+    type,
+    className,
+    name
 }) => {
 
     const [innerType, setInnerType] = useState(type)
 
   return (
-    <div className='bg-[#eee] h-12 w-full rounded-lg flex'>
+    <div className={` bg-[#eee] h-12 w-full rounded-lg flex ${className}`}>
 
-        <input className='w-full h-12 bg-transparent outline-none px-3' value={value} onChange={onChange} placeholder={placeholder} type={innerType} />
+        <input name={name} className='w-full h-12 bg-transparent outline-none px-3' value={value} onChange={onChange} placeholder={placeholder} type={innerType} />
             {
                 type === 'password' && 
                 <div

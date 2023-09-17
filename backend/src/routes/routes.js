@@ -29,6 +29,12 @@ let routes = [
         middlewares: usersController['loginAdmin']['middlewares'],
         controller: usersController['loginAdmin']['controller']
     },
+    {
+        route: '/editProfile',
+        type: 'put',
+        middlewares: usersController['updateProfile']['middlewares'],
+        controller: usersController['updateProfile']['controller']
+    },
     
             {
                 route: '/test',

@@ -1,17 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Layout from './layout'
 import HelloWorldPage from './views/HelloWorld'
 import LoginPage from './views/Login'
+import userActions from './redux/actions/User'
+import EditProfile from './views/EditProfile'
 
-const CostumeRouter = ({isLogin}) => {
+const CostumeRouter = ({isLogin, checkUserLogin}) => {
+
+
+  useEffect(() => {
+    checkUserLogin()
+  }, [])
 
   let routes = [
     {
+      path: '/editProfile',
+      element: <EditProfile />
+    },
+    {
       path: '*',
       element: <HelloWorldPage />
-    }
+    },
   ]
 
   return (
@@ -36,7 +47,7 @@ const mapStateToProps = state => ({
   isLogin: state.userState.isLogin
 })
 const mapDispatchToProps ={
-
+  checkUserLogin: userActions.checkUserLogin
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CostumeRouter)
