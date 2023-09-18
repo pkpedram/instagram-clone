@@ -1,6 +1,7 @@
 let initialState = {
     isLogin: false,
-    userData: {}
+    userData: {},
+    userByUserName: {}
 }
 
 const userState = (state = initialState, action ) => {
@@ -14,6 +15,12 @@ const userState = (state = initialState, action ) => {
                 isLogin: true,
                 userData: payload
             }
+
+        case 'user/' + params?.username: 
+            return {
+                ...state,
+                userByUserName: payload.result
+            }    
 
         default:
             return state

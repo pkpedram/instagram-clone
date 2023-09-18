@@ -16,6 +16,9 @@ const userActions = {
             let res = await axios.post(ApiConfig.baseUrl + '/login', data);
             if(res.data){
                 console.log(res.data)
+                window.localStorage.setItem('userData', JSON.stringify(res.data.userData))
+                window.localStorage.setItem('access', res.data.token)
+                window.location.reload()
             }
         } catch (error) {
             console.error(error)
@@ -29,7 +32,7 @@ const userActions = {
                 console.log(res.data)
                 window.localStorage.setItem('userData', JSON.stringify(res.data.userData))
                 window.localStorage.setItem('access', res.data.token)
-                // window.location.replace('/editProfile')
+                window.location.href = '/editProfile'
             }
         } catch (error) {
             toast.error(error.response.data.message)
@@ -62,6 +65,10 @@ const userActions = {
             toast.error(error.response.data.message)
 
         }
+    },
+
+    getUserByUserName: (data) => async dispatch => {
+        await _dataManager.get('user/' + data, {}, {dispatch}, {username: data}, false)
     }
 }
 

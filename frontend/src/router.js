@@ -6,6 +6,7 @@ import HelloWorldPage from './views/HelloWorld'
 import LoginPage from './views/Login'
 import userActions from './redux/actions/User'
 import EditProfile from './views/EditProfile'
+import Profile from './views/Profile'
 
 const CostumeRouter = ({isLogin, checkUserLogin}) => {
 
@@ -18,6 +19,10 @@ const CostumeRouter = ({isLogin, checkUserLogin}) => {
     {
       path: '/editProfile',
       element: <EditProfile />
+    },
+    {
+      path: '/profile/:username',
+      element: <Profile />
     },
     {
       path: '*',

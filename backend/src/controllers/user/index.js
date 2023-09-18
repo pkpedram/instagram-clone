@@ -29,6 +29,9 @@ const usersController = {
                 password: encrypt(req.body.password),
                 role: "basic",
                 phoneNumber: req.body.usernameOrOther,
+                followers: 0,
+                following: 0,
+                posts: 0
               });
               await user.save();
 
@@ -47,6 +50,9 @@ const usersController = {
                 password: encrypt(req.body.password),
                 role: "basic",
                 email: req.body.usernameOrOther,
+                followers: 0,
+                following: 0,
+                posts: 0
               });
               await emailUser.save();
               let emailToken = generateJwtToken({
@@ -64,6 +70,9 @@ const usersController = {
                 password: encrypt(req.body.password),
                 role: "basic",
                 username: req.body.usernameOrOther,
+                followers: 0,
+                following: 0,
+                posts: 0
               });
               await usernameUser.save();
 
@@ -109,7 +118,7 @@ const usersController = {
           });
           return res.send({ token: token, userData: user });
         } else {
-          res.status(404).send({ message: "user not found please signup" });
+          res.status(404).send({ message: "Login Info Invalid" });
         }
       } catch (error) {
         console.error(error);
@@ -159,24 +168,25 @@ const usersController = {
                 ]
               });
 
-            
+            console.log(user)
             if(user){
                 switch(true){
                     case !!await User.findOne({username: req.body.username}):
                         let foundUserBuUserName = await User.findOne({username: req.body.username})
-                        if(user._id !== foundUserBuUserName?._id){
+                      
+                        if(user.id !== foundUserBuUserName?.id){
                             return res.status(400).send({message: 'There is Already a User with this Username'})
                         }
 
                         case !!await User.findOne({email: req.body.email}):
                         let foundUserByEmail = await User.findOne({email: req.body.email})
-                        if(user._id !== foundUserByEmail?._id){
+                        if(user.id !== foundUserByEmail?.id){
                             return res.status(400).send({message: 'There is Already a User with this Email'})
                         }
 
                         case !!await User.findOne({phoneNumber: req.body.phoneNumber}):
                         let foundUserByPhoneNumber = await User.findOne({phoneNumber: req.body.phoneNumber})
-                        if(user._id !== foundUserByPhoneNumber?._id){
+                        if(user.id !== foundUserByPhoneNumber?.id){
                             return res.status(400).send({message: 'There is Already a User with this PhoneNumber'})
                         }
 
@@ -209,7 +219,37 @@ const usersController = {
             next()
         }
     }
+    },
+
+  getByUserName: {
+    middlewares: [],
+    controller: async (req, res, next) => {
+        try {
+            let user = await User.findOne({username: req.params.username})
+            if(user){
+              return  res.status(200).send({
+                    result: {
+                        username: user.username,
+                        bio: user.bio,
+                        followers: user.followers,
+                        following: user.following,
+                        posts: user.posts,
+                        fullName: user.fullName,
+                        avatar: user.avatar
+                    }
+                })
+            }else{
+                return res.status(404).send({message: 'User Not Found'})
+            }
+        } catch (error) {
+            if(process.env.NODE_ENV !== 'production'){
+                console.log(error)
+            }
+            res.status(500).send({message: error})
+            next()
+        }
     }
+  }  
   
 };
 

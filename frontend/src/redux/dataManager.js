@@ -103,10 +103,10 @@ class DataManager {
       if (reload) {
         if (typeof reload == "boolean") {
           window.location.reload();
+        }else {
+          window.location.href = reload;
         }
-      } else {
-        window.location.href = reload;
-      }
+      } 
       return response.data;
     } catch (error) {
       await dispatch({ type: "LOADING_END" });

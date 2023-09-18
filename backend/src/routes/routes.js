@@ -35,6 +35,13 @@ let routes = [
         middlewares: usersController['updateProfile']['middlewares'],
         controller: usersController['updateProfile']['controller']
     },
+    {
+        route: '/user/:username',
+        type: 'get',
+        middlewares: usersController['getByUserName']['middlewares'],
+        controller: usersController['getByUserName']['controller']
+
+    },
     
             {
                 route: '/test',

@@ -19,7 +19,9 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     avatar: String,
-
+    posts: Number,
+    followers: Number,
+    following: Number,
 })
 
 const User = mongoose.model('User', userSchema);
