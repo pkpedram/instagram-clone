@@ -5,6 +5,7 @@ const { generateFileName } = require("../../core/utils/multer");
 const PostImage = require("../../models/PostImage");
 const PostVideo = require("../../models/PostVideos");
 const Post = require("../../models/Posts");
+const User = require("../../models/User");
 
 
 const postController = {
@@ -99,7 +100,47 @@ const postController = {
             }
         }
     },
+    getPersonPostList: {
+        middlewares: [
+            authenticateJwtToken(['user', 'basic'])
+        ],
+        controller: async (req, res, next) => {
+            try {
+                let user = await User.findOne({username: req.params.username})
+                let offset = req.query.offset
+                let limit = req.query.limit
+                if(user){
+                    let data = []
 
+                    let posts = await Post.find({relatedUser: user.id}).skip(offset).limit(limit)
+                 
+                     data = await Promise.all(posts.map(async post => {
+                        let postImage = await PostImage.findOne({relatedPost: post.id});
+                        let postVideo = await PostVideo.findOne({relatedPost: post.id});
+
+
+                            return ({
+                                post: post,
+                                thumbnail: postImage ? postImage.image : postVideo.video
+                            })
+                    }))
+                   
+
+                    return res.status(200).send({result:  data})
+
+                }else{
+                    return res.status(400).send({message: 'User not found.'})
+                }
+
+            } catch (error) {
+                if(process.env.NODE_ENV !== 'production'){
+                    console.log(error)
+                }
+                res.status(500).send({message: error})
+                next()
+            }
+        }
+    }
 }
 
 

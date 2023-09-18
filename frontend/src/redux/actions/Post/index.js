@@ -1,6 +1,7 @@
 import axios from "axios"
 import { ApiConfig } from "../../constants"
 import { toast } from "react-toastify"
+import _dataManager from "../../dataManager"
 
 const postActions = {
     addPost: (data = {}, images = [], videos = []) => async dispatch => {
@@ -67,6 +68,10 @@ const postActions = {
             console.log(error)
             toast.error(error.response.data.message)
         }
+    },
+
+    getUserPosts: (username = '',data = {}, params = {}) => async dispatch => {
+        await _dataManager.get(`posts/${username}`, data, {dispatch, params: params}, {username: username})
     }
 }
 

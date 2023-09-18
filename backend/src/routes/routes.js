@@ -62,6 +62,12 @@ let routes = [
         middlewares: postController['addPostVideo']['middlewares'],
         controller: postController['addPostVideo']['controller']
     },
+    {
+        route: '/posts/:username',
+        type: 'get',
+        middlewares: postController['getPersonPostList']['middlewares'],
+        controller: postController['getPersonPostList']['controller']
+    },
 
             {
                 route: '/test',
