@@ -3,6 +3,7 @@ const usersController = require("../controllers/user")
 
 const testController = require("../controllers/Test")
 const foreignKeyTestController = require("../controllers/ForeignKeyTest")
+const postController = require("../controllers/Post")
 
 let routes = [
     // {
@@ -43,6 +44,25 @@ let routes = [
 
     },
     
+    {
+        route: '/post',
+        type: 'post',
+        middlewares: postController['addPost']['middlewares'],
+        controller: postController['addPost']['controller']
+    },
+    {
+        route: '/post/image',
+        type: 'post',
+        middlewares: postController['addPostImage']['middlewares'],
+        controller: postController['addPostImage']['controller']
+    },
+    {
+        route: '/post/video',
+        type: 'post',
+        middlewares: postController['addPostVideo']['middlewares'],
+        controller: postController['addPostVideo']['controller']
+    },
+
             {
                 route: '/test',
                 type: 'post',
