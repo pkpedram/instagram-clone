@@ -72,6 +72,9 @@ const postActions = {
 
     getUserPosts: (username = '',data = {}, params = {}) => async dispatch => {
         await _dataManager.get(`posts/${username}`, data, {dispatch, params: params}, {username: username})
+    },
+    getPostInfo: (id = '') => async dispatch => {
+        await _dataManager.get(`post/${id}`, {}, {dispatch}, {id: id})
     }
 }
 

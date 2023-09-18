@@ -69,6 +69,12 @@ let routes = [
         controller: postController['getPersonPostList']['controller']
     },
 
+    {
+        route: '/post/:id',
+        type: 'get',
+        middlewares: postController['getById']['middlewares'],
+        controller: postController['getById']['controller']
+    },
             {
                 route: '/test',
                 type: 'post',

@@ -8,6 +8,7 @@ import userActions from './redux/actions/User'
 import EditProfile from './views/EditProfile'
 import Profile from './views/Profile'
 import AddPost from './views/addPost'
+import PostInfo from './views/PostInfo'
 
 const CostumeRouter = ({isLogin, checkUserLogin}) => {
 
@@ -28,6 +29,10 @@ const CostumeRouter = ({isLogin, checkUserLogin}) => {
     {
       path: '/addPost',
       element: <AddPost />
+    },
+    {
+      path: '/post/:id',
+      element: <PostInfo />
     },
     {
       path: '*',

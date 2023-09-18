@@ -13,6 +13,11 @@ const postState = (state = initialState, action) => {
             ...state,
             userPosts: payload.result
         }
+    case `post/${params?.id}`:
+        return {
+            ...state,
+            postInfo: payload.result
+        }    
 
     default:
       return state;

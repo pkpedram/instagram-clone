@@ -2,7 +2,9 @@ const { authenticateJwtToken } = require("../../core/middlewares/jwt");
 const { upload } = require("../../core/middlewares/multer");
 const { baseResults } = require("../../core/utils/Results");
 const { generateFileName } = require("../../core/utils/multer");
+const PostComment = require("../../models/PostComments");
 const PostImage = require("../../models/PostImage");
+const PostLike = require("../../models/PostLikes");
 const PostVideo = require("../../models/PostVideos");
 const Post = require("../../models/Posts");
 const User = require("../../models/User");
@@ -130,6 +132,48 @@ const postController = {
 
                 }else{
                     return res.status(400).send({message: 'User not found.'})
+                }
+
+            } catch (error) {
+                if(process.env.NODE_ENV !== 'production'){
+                    console.log(error)
+                }
+                res.status(500).send({message: error})
+                next()
+            }
+        }
+    },
+    getById: {
+        middlewares: [
+            authenticateJwtToken(['user', 'basic'])
+        ],
+        controller: async (req, res, next) => {
+            try{
+                let post = await Post.findById(req.params.id).populate('relatedUser')
+                if(post){
+                    let postComments = await PostComment.find({relatedPost: post.id}).skip(0).limit(4)
+                    let postLikes = await PostLike.find({relatedPost: post.id}).limit(2).populate('relatedUser')
+                    let postImages = await PostImage.find({relatedPost: post.id})
+                    let postVideos = await PostVideo.find({relatedPost: post.id})
+                    let commentCounts = await PostComment.count({relatedPost: post.id})
+                    let youLiked = await PostLike.findOne({relatedPost: post.id, relatedUser: req.user.userId})
+
+                    return res.send({
+                       result: {
+                        post: post,
+                        comments: postComments,
+                        likes: postLikes,
+                        images: postImages,
+                        videos: postVideos,
+                        commentCounts: commentCounts,
+                        youLiked: !!youLiked,
+                        // SAVE LATER
+                        youSaved: false
+                       }
+                    })
+
+                }else{
+                    return res.status(400).send({message: 'Post not found.'})
                 }
 
             } catch (error) {
